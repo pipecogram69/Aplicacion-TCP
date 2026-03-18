@@ -1,0 +1,15 @@
+osascript -e 'tell app "Terminal" to do script "java -jar /Volumes/SSD_FELIPE/Universidad/Sistemas_Distribuidos/TCP_2corte/ServidorSimple.jar 5001"'
+osascript -e 'tell app "Terminal" to do script "java -jar /Volumes/SSD_FELIPE/Universidad/Sistemas_Distribuidos/TCP_2corte/ServidorSimple.jar 5002"'
+osascript -e 'tell app "Terminal" to do script "java -jar /Volumes/SSD_FELIPE/Universidad/Sistemas_Distribuidos/TCP_2corte/ServidorSimple.jar 5003"'
+osascript -e 'tell app "Terminal" to do script "java -jar /Volumes/SSD_FELIPE/Universidad/Sistemas_Distribuidos/TCP_2corte/Balanceador.jar"'
+java -jar /Volumes/SSD_FELIPE/Universidad/Sistemas_Distribuidos/TCP_2corte/ClienteGUI.jar
+
+
+
+java -cp ./bin Servidor.ServidorSimple 5001
+java -cp ./bin Servidor.ServidorSimple 5002
+java -cp ./bin Servidor.ServidorSimple 5003
+
+java -cp ./bin Balanceador.Balanceador
+
+lsof -ti:5001,5002,5003,4000,12345 | xargs kill -9 2>/dev/null
